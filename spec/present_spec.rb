@@ -15,8 +15,3 @@ describe Present do
     expect(present.unwrap).to eq "Lego"
   end
 end
-
-
-#if we wrap then unwrap and we find presents
-#if we wrap then wrap we should fail with message: "A contents has already been wrapped."
-#if contents is empty and we unwrap it it should fail with message: "No contents have been wrapped."
