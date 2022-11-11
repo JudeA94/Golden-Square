@@ -1,0 +1,23 @@
+Diary
+when initialised it should create an empty array
+check that showing all on empty diary show empty array
+reading time for an empty diary should return 0
+find best entry for empty diary should throw error
+
+DiaryEntry
+when initialised it creates an instance of diary entry with title and contents
+when title is called on the instance it returns the title when title is called on contents it returns the contents
+count words splits entry contents into array of words and counts them
+reading time takes wpm and returns reading time of this instance of diary entry
+reading time throws error if given parameter <= 0
+reading chunk wpm <= 0 causes a fail
+when given a text readable within minutes it returns full text
+text not readable within given minutes it just returns words readable within time
+next time its called it returns the next chunk
+it restarts after ending (either exactly on the end or if you could read beyond in given time)
+
+Integration
+adding instances of entries calling all returns an array their names
+count words should return the total number of words in all the contents of the diary entries
+reading time returns the estimate for the reading time for all diary entries (calling reading time for each)
+returns the diary entry that has the most words but still less than wpm*minutes
