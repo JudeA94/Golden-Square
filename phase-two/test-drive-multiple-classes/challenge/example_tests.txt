@@ -1,0 +1,68 @@
+# File: lib/todo_list.rb
+class TodoList
+  def initialize
+  end
+
+  def add(todo) # todo is an instance of Todo
+    # Returns nothing
+  end
+
+  def incomplete
+    # Returns all non-done todos
+  end
+
+  def complete
+    # Returns all complete todos
+  end
+
+  def give_up!
+    # Marks all todos as complete
+  end
+end
+
+# File: lib/todo.rb
+class Todo
+  def initialize(task) # task is a string
+    # ...
+  end
+
+  def task
+    # Returns the task as a string
+  end
+
+  def mark_done!
+    # Marks the todo as done
+    # Returns nothing
+  end
+
+  def done?
+    # Returns true if the task is done
+    # Otherwise, false
+  end
+end
+
+
+TodoList
+
+.new creates instance of TodoList
+.new creates an empty list
+.incomplete raises error with message if no tasks
+.complete raises error with message if no tasks
+.give_up raises error with message if no tasks
+
+
+Todo
+.new creates an instance of todo
+.task returns the task as a string
+.mark_done! marks todo as done
+.done? returns true if task is done, false otherwise
+
+Integration
+add(todo) adds an instance of todo to the todo list
+list.incomplete returns list of incomplete tasks
+list.complete returns list of complete tasks
+.give_up! marks all todos as complete
+
+
+
+
