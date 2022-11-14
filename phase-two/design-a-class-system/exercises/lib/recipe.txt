@@ -1,0 +1,222 @@
+# {{PROBLEM}} Multi-Class Planned Design Recipe
+
+## 1. Describe the Problem
+
+As a user
+So that I can record my experiences
+I want to keep a regular diary
+
+As a user
+So that I can reflect on my experiences
+I want to read my past diary entries
+
+As a user
+So that I can reflect on my experiences in my busy day
+I want to select diary entries to read based on how much time I have and my reading speed
+
+As a user
+So that I can keep track of my tasks
+I want to keep a todo list along with my diary
+
+As a user
+So that I can keep track of my contacts
+I want to see a list of all of the mobile phone numbers in all my diary entries
+
+## 2. Design the Class System
+
+```
+┌──────────────────────────────────────┬──────────────────────────────────────────────────────────────────────────────────┐
+│                                      │                                                                                  │
+│  Diary                               │                                                                                  │
+│                                      │       ┌────────────────────────────────────────┐          ┌──────────────────────▼─────────────┐
+│  contains instances of DiaryEntry    │       │    DiaryEntry                          │          │   Contacts                         │
+│                                      │       │                                        │          │                                    │
+│  methods:-add (adds an entry) ◄──────┼───────┤  contains a contents(string)           │          │   contains phone numbers (strings) │
+│                                      │       │                                        │          │                                    │
+│          -read (returns the contents │       │  contains a date                       │          │   methods:-scan(finds all the phone│
+│                 of an entry)         │       │                                        │          │             (numbers in the diary  │
+│                                      │       │  methods:-reading_time (calculates how ├──────────►              entries)              │
+│          -read_in_time (returns the  │       │                   long it would take   │          │                                    │
+│              (longest entry readable │       │                   to read it given wpm)│          │           -add(adds a phone number)│
+│               in given time and wpm) │       └────────────────────────────────────────┘          │                                    │
+└──────────────────────────────────────┘                                                           │           -view(returns all unique │
+                                                                                                   │                 phone numbers)     │
+                                                                                                   │                                    │
+┌─────────────────────────────────────┐                                                            └────────────────────────────────────┘
+│                                     │
+│  TodoList                           │       ┌───────────────────────────────────┐
+│                                     │       │   Todo                            │
+│  Contains instances of ToDo         │       │                                   │
+│                                ◄────┼───────┤   contains a task(string)         │
+│  methods:-add (adds a Todo)         │       │                                   │
+│                                     │       │   contains a task                 │
+│          -view (views all todos)    │       │                                   │
+│                                     │       └───────────────────────────────────┘
+│          -mark_done (deleted a ToDo)│
+│                                     │
+└─────────────────────────────────────┘
+```
+
+_Also design the interface of each class in more detail._
+
+```ruby
+class Diary
+  def initialize
+    # empty array that will contain the entries
+  end
+
+  def add(entry) # entry is an instance of DiaryEntry
+    # entry gets added to the diary
+    # Returns nothing
+  end
+
+  def all
+    # Returns a list of entry objects
+  end
+  
+  def read(entry) # entry is an instance of DiaryEntry
+    # Returns contents of entry
+  end
+
+  def find_best_entry_for_reading_time(wpm,minutes)
+    # returns longest readable entry
+  end
+end
+
+class DiaryEntry
+  def initialize(date, contents) # date and contents are both strings
+    @date = date
+    @title = title
+  end
+
+  def reading_time(wpm)
+    # Returns how long it would take to read the entry
+  end
+end
+
+class Contacts
+  def initialize
+    # empty array to store contacts
+  end
+
+  def scan
+    # Returns array of phone numbers in all diary entries
+  end
+end
+
+class TodoList
+  def initialize
+    # empty array to store ToDos
+  end
+
+  def add
+    # adds a ToDo to the list
+  end
+
+  def mark_done
+    # removes a ToDo from the list
+  end
+
+  def view
+    # returns the list of todos
+  end
+end
+
+class Todo
+  def initialize(task) # task is a string
+    @todo = todo
+  end
+end
+```
+
+## 3. Create Examples as Integration Tests
+
+_Create examples of the classes being used together in different situations and
+combinations that reflect the ways in which the system will be used._
+
+```ruby
+# EXAMPLE
+
+# add a diary entry
+diary = Diary.new
+entry1 = DiaryEntry.new('14/11/22', 'today i did stuff')
+diary.add(entry1)
+diary.read(entry1) => 'today i did stuff'
+
+# find_best_entry_for_reading_time
+diary = Diary.new
+entry1 = DiaryEntry.new('14/11/22', 'today i did stuff')
+entry2 = DiaryEntry.new('15/11/22', 'today i did even more stuff')
+diary.add(entry1)
+diary.add(entry2)
+diary.find_best_entry_for_reading_time(2,2) => '14/11/22: today i did stuff'
+
+# view contacts from all diary entries
+diary = Diary.new
+contact_list = Contacts.new
+entry1 = DiaryEntry.new('14/11/22', 'today i met Bob, his number is 07800000000')
+entry2 = DiaryEntry.new('15/11/22', 'today i met Jill her number is 07900000000')
+diary.add(entry1)
+diary.add(entry2)
+contact_list.view => '07800000000, 07900000000'
+
+# view added todos
+list = TodoList.new
+todo1 = Todo.new('food shopping')
+todo2 = Todo.new('take out bins')
+list.add(todo1)
+list.add(todo2)
+list.view => ''food shopping, take out bins'
+
+# todos can be added and removed
+list = ToDoList.new
+todo1 = ToDo.new('food shopping')
+todo2 = ToDo.new('take out bins')
+list.add(todo1)
+list.add(todo2)
+list.mark_done(todo1)
+list.view => 'take out bins'
+
+```
+
+## 4. Create Examples as Unit Tests
+
+_Create examples, where appropriate, of the behaviour of each relevant class at
+a more granular level of detail._
+
+```ruby
+# EXAMPLE
+
+# manually add contacts to list
+contact_list = Contacts.new
+contact_list.add('07700000000')
+contact_list.view = '07700000000'
+
+# adding an invalid phone number to list raises error
+contact_list = Contacts.new
+contact_list.add('077000')
+contact_list.view => error "That's not a valid phone number!"
+
+# diary entry read time raises error if wpm<=0
+entry1 = DiaryEntry.new('14/11/22', 'i did stuff today')
+entry1.reading_time(-4) => raise error "wpm must be positive"
+
+# diary entry read time calculated
+entry1 = DiaryEntry.new('14/11/22', 'i did stuff today')
+entry1.reading_time(2) => 2
+
+# find_best_entry_for_reading_time raises error for an empty diary
+diary = Diary.new
+diary.find_best_entry_for_reading_time(2,2) => raise "Diary empty"
+
+# deleting a non-existent todo raises error
+list = ToDoList.new
+list.delete(todo1) => raises error "That's not on your list!"
+```
+
+_Encode each example as a test. You can add to the above list as you go._
+
+## 5. Implement the Behaviour
+
+_After each test you write, follow the test-driving process of red, green,
+refactor to implement the behaviour._
