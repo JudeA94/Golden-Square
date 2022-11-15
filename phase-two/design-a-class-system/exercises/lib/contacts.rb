@@ -4,7 +4,7 @@ class Contacts
     @diary = diary
     @contact_list = []
   end
-  
+
   def view
     extract_numbers
     @contact_list.join(', ')
@@ -12,7 +12,7 @@ class Contacts
 
   def extract_numbers
     @diary.entries.each do |entry|
-      unless number_from_entry(entry).empty? then @contact_list << number_from_entry(entry) end
+      @contact_list << number_from_entry(entry) unless number_from_entry(entry).empty?
     end
   end
 
@@ -21,7 +21,7 @@ class Contacts
   end
 
   def add(number)
-    raise "Thats not a valid phone number" unless number.match?(/0[0-9]{10}/)
+    raise "That's not a valid phone number!" unless number.match?(/0[0-9]{10}/)
     @contact_list << number
   end
 end

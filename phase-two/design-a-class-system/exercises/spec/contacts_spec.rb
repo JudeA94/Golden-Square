@@ -8,7 +8,7 @@ describe Contacts do
   end
   it "raises error with message if number invalid" do
     diary = Diary.new
-    contact_list = Contacts.new(diary)
-    expect{ contact_list.add('077000hgjh') }.to raise_error "That's not a valid phone number!"
+    contacts = Contacts.new(diary)
+    expect{ contacts.add('077000') }.to raise_error "That's not a valid phone number!"
   end
 end
