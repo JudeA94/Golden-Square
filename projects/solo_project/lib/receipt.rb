@@ -1,3 +1,5 @@
+require 'twilio-ruby'
+
 class Receipt
   def initialize(order)
     @order = order.list
@@ -5,7 +7,8 @@ class Receipt
   end
 
   def view
-    raise "Receipt empty" if @order.empty?
+    raise 'Receipt empty' if @order.empty?
+
     itemised = []
     @order.each do |dish|
       itemised << "#{dish.name}: £#{dish.price}"
@@ -14,12 +17,14 @@ class Receipt
   end
 
   def calculate_service
-    raise "Receipt empty" if @order.empty?
+    raise 'Receipt empty' if @order.empty?
+
     (total * @service).round(2)
   end
 
   def total
-    raise "Receipt empty" if @order.empty?
+    raise 'Receipt empty' if @order.empty?
+
     total = 0
     @order.each do |dish|
       total += dish.price
@@ -28,21 +33,26 @@ class Receipt
   end
 
   def total_with_service
-    raise "Receipt empty" if @order.empty?
+    raise 'Receipt empty' if @order.empty?
+
     total + calculate_service
   end
 
   def adjust_tip(percentage)
-    raise "Receipt empty" if @order.empty?
+    raise 'Receipt empty' if @order.empty?
+
     @service = (percentage / 100.0)
     total * @service
   end
 
   def confirm
-    raise "Receipt empty" if @order.empty?
-    #Sends text
+    raise 'Receipt empty' if @order.empty?
+    account_sid =
+    auth_token =
+    @client = Twilio::REST::Client.new(account_sid, auth_token)
+    
   end
-  
+
   private
 
   def end_of_bill(itemised)
@@ -51,4 +61,3 @@ class Receipt
     itemised.join("\n")
   end
 end
-
