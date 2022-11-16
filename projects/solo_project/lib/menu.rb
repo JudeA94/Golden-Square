@@ -1,7 +1,7 @@
 class Menu
   def initialize
     @menu_list = []
-    @categories = [:starter,:side,:main,:drink,:dessert]
+    @categories = [:Starters,:Mains,:Sides,:Drinks,:Desserts]
   end
 
   def add(dish)
@@ -19,11 +19,15 @@ class Menu
 
   def view_all
     raise "Current menu is empty!" if @menu_list.empty?
-
+    all_menu = []
+    @categories.each do |category|
+      all_menu << sort_by_menu_category(category)
+    end
+    all_menu.join("\n")
   end
 
   def sort_by_menu_category(category)
-    menu_items = []
+    menu_items = [category.to_s]
     @menu_list.each do |dish|
       if dish.category == category
         menu_items << "#{dish.name}: #{dish.description} £#{dish.price}"
@@ -31,4 +35,5 @@ class Menu
     end
     menu_items.join("\n")
   end
+
 end

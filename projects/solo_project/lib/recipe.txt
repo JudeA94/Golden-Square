@@ -188,11 +188,13 @@ wings = Dish.new('Buffalo Wings', 'Deep fried chicken wings in a spicy sauce', 9
 menu.add(chips)
 menu.add(wings)
 menu.view_all => 
-'Sides'
-'French Fries: Deep fried thin cut potatoes £3.99'
+'Starters'
 'Mains'
 'Buffalo Wings: Deep fried chicken wings in a spicy sauce £9.99'
-
+'Sides'
+'French Fries: Deep fried thin cut potatoes £3.99'
+'Drinks'
+'Deseerts'
 -a menu with multiple items in multiple categories
 
 --view_all put's items sorted by category and displays correctly
