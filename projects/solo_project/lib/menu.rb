@@ -9,7 +9,7 @@ class Menu
   end
 
   def remove(dish)
-    #Removes dish from menu list
+    @menu_list.delete(dish)
   end
 
   def view(category)

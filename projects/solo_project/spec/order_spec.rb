@@ -6,5 +6,5 @@ describe Order do
       order = Order.new
       expect{ order.view }.to raise_error "Current order is empty!"
     end
-  end  
+  end
 end

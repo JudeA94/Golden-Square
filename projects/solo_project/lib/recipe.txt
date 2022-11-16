@@ -194,10 +194,12 @@ menu.view_all =>
 'Sides'
 'French Fries: Deep fried thin cut potatoes £3.99'
 'Drinks'
-'Deseerts'
+'Desserts'
+
 -a menu with multiple items in multiple categories
 
 --view_all put's items sorted by category and displays correctly
+Menu = Menu.new
 chips = Dish.new('French Fries', 'Deep fried thin cut potatoes', 3.99, 'side')
 onion_rings = Dish.new('Onion Rings', 'Deep fried battered onion rings', 4.99, 'side')
 wings = Dish.new('Buffalo Wings', 'Deep fried chicken wings in a spicy sauce', 9.99, 'main')
@@ -207,12 +209,15 @@ menu.add(onion_rings)
 menu.add(wings)
 menu.add(burger)
 menu.view_all => 
-'Sides'
-'French Fries: Deep fried thin cut potatoes £3.99'
-'Onion Rings: Deep fried battered onion rings £4.99'
+'Starters'
 'Mains'
 'Buffalo Wings: Deep fried chicken wings in a spicy sauce £9.99'
 'Cheeseburger: Cheeseburger with lettuce onion and tomato £12.99'
+Sides'
+'French Fries: Deep fried thin cut potatoes £3.99'
+'Onion Rings: Deep fried battered onion rings £4.99'
+'Drinks'
+'Desserts'
 
 --remove deletes an item from the menu
 chips = Dish.new('French Fries', 'Deep fried thin cut potatoes', 3.99, 'side')
@@ -237,7 +242,7 @@ menu.view_all =>
 --view item name
 chips = Dish.new('French Fries', 'Deep fried thin cut potatoes', 3.99, 'side')
 order = Order.new
-order.add(chips)
+order.add(chips,1)
 order.view => 'French Fries'
 
 -with multiple items
@@ -284,7 +289,7 @@ receipt = Receipt.new(order)
 receipt.view => 
 'French Fries: £3.99'
 'Buffalo Wings: £9.99'
-'Service Charge 12.5%: £1.75'
+'Service Charge: £1.75'
 'Total: £15.73'
 
 --total gives total cost including tip
