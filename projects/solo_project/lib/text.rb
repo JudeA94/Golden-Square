@@ -11,7 +11,7 @@ class Text
     message = @client.messages.create(
       body: "Thank you! Your order was placed and will be delivered before #{(Time.now + 20 * 60).strftime('%k:%M')}",
       to: "+#{number}",
-      from: '+18159085524'
+      from: "#{ENV['MY_TWILIO_NUMBER']}"
     )
     puts message.sid
   end

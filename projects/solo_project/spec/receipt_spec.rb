@@ -82,10 +82,10 @@ describe Receipt do
       receipt = Receipt.new(order_list)
       expect { receipt.adjust_tip(10) }.to raise_error 'Receipt empty'
     end
-    xit 'raises error when is confirm called' do
+    it 'raises error when is confirm_by_text called' do
       order_list = Order.new
       receipt = Receipt.new(order_list)
-      expect { receipt.confirm }.to raise_error 'Receipt empty'
+      expect { receipt.confirm_by_text(888) }.to raise_error 'Receipt empty'
     end
   end
 end

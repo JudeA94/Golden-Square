@@ -16,5 +16,4 @@ menu.add(burger)
 order = Order.new
 order.add(chips,1)
 receipt = Receipt.new(order)
-p receipt.view
-receipt.confirm_by_text(447877916281)
+receipt.confirm_by_text(ENV['MY_PHONE_NUMBER'])
