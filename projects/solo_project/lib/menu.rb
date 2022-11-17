@@ -35,5 +35,4 @@ class Menu
     end
     menu_items.join("\n")
   end
-
 end

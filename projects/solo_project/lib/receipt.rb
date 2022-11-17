@@ -1,5 +1,3 @@
-require 'twilio-ruby'
-
 class Receipt
   def initialize(order)
     @order = order.list
@@ -45,12 +43,10 @@ class Receipt
     total * @service
   end
 
-  def confirm
+  def confirm_by_text(number)
     raise 'Receipt empty' if @order.empty?
-    account_sid =
-    auth_token =
-    @client = Twilio::REST::Client.new(account_sid, auth_token)
-    
+    text = Text.new
+    text.send(number)
   end
 
   private
